@@ -10,7 +10,7 @@ pipeline {
     }
 
     environment {
-        REPO_URL        = 'git@172.19.0.2:8929/task8/task8.git'
+        REPO_URL        = 'http://172.19.0.2:8929/task8/task8.git'
         BRANCH          = 'main'
         REPO_DIR        = '/var/jenkins_home'   // локальное хранилище
         FILES_TO_DELETE = 'Task1.py Task2.py'
