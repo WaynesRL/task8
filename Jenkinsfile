@@ -93,5 +93,5 @@ pipeline
         }
     }
 
-    post { failure { echo "echo " Step ${params.STEP} was failed" } }
+    post { failure { echo "echo: Step ${params.STEP} was failed" } }
 }
