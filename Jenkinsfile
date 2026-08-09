@@ -79,13 +79,13 @@ pipeline {
                 git status
                 '''
         }
-    }
         post {
             success {
                 build job: 'Job_3', wait: false,
                         parameters: [string(name: 'STEP', value: 'push')]
             }
         }
+    }
 
     /* Job_3 */
     stage('Job_3: push') {
@@ -102,7 +102,6 @@ pipeline {
                 echo "Pushed to $BRANCH"
                 '''
         }
-    }
 
     post { failure { echo "echo: Step ${params.STEP} was failed" } }
     }
