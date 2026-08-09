@@ -1,4 +1,4 @@
-pipeline
+pipeline {
     agent any
 
     parameters {
@@ -7,23 +7,32 @@ pipeline
     }
 
     environment {
-        GITHUB_REPO         = 'https://github.com/WaynesRL/task8'
+        GITHUB_REPO         = 'github.com/WaynesRL/task8'
         BRANCH              = 'main'
         REPO_DIR            = '/var/jenkins_home/local'
         FILES_TO_DELETE     = 'Task1.py Task2.py'
         GIT_USER            = 'WaynesRL'
         GIT_EMAIL           = 'waynesdb@gmail.com'
+        CRED_ID             = 'github-pat'
     }
 
     triggers {
         pollSCM('H/2 * * * *')
     }
 
+    options {
+        skipDefaultCheckout(true)
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+    }
+
     stages {
 
         /* Job_1 */
-        stage('Job_1: clone from main to local')
+        stage('Job_1: clone from main to local') {
             when { expression { params.STEP == 'clone' } }
+                withCredentials([usernamePassword(credentialsId: env.CRED_ID,
+                    usernameVariable: 'GITHUB_LOGIN',
+                    passwordVariable: 'GITHUB_TOKEN')]) {
 
                 sh '''
                     set -e
@@ -46,7 +55,6 @@ pipeline
                     post {
                         success {
                             script {
-                                if (env.CHAIN != 'stop') {
                                     build job: 'Job_2', wait: false,
                                         parameters: [string(name: 'STEP', value: 'delete')]
                         }
@@ -94,4 +102,6 @@ pipeline
     }
 
     post { failure { echo "echo: Step ${params.STEP} was failed" } }
+        }
+    }
 }
