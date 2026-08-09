@@ -105,6 +105,5 @@ pipeline {
     }
 
     post { failure { echo "echo: Step ${params.STEP} was failed" } }
-        }
     }
 }
