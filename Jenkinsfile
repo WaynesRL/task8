@@ -13,7 +13,7 @@ pipeline {
         FILES_TO_DELETE     = 'Task1.py Task2.py'
         GIT_USER            = 'WaynesRL'
         GIT_EMAIL           = 'waynesdb@gmail.com'
-        CRED_ID             = 'github-pat'
+        CRED_ID             = 'ef1ca67f-bafc-4d21-a91e-f171727525bd'
     }
 
     triggers {
