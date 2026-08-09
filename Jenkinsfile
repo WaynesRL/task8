@@ -30,6 +30,7 @@ pipeline {
         /* Job_1 */
         stage('Job_1: clone from main to local') {
             when { expression { params.STEP == 'clone' } }
+            steps {
                 withCredentials([usernamePassword(credentialsId: env.CRED_ID,
                     usernameVariable: 'GITHUB_LOGIN',
                     passwordVariable: 'GITHUB_TOKEN')]) {
@@ -52,6 +53,7 @@ pipeline {
                     echo "=== Files ==="; ls -1
                     '''
                 }
+            }
                     post {
                         success {
                             script {
@@ -77,6 +79,7 @@ pipeline {
                 git status
                 '''
         }
+    }
         post {
             success {
                 build job: 'Job_3', wait: false,
