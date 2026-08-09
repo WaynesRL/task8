@@ -37,7 +37,7 @@ pipeline {
 
                 sh '''
                     set -e
-                    URL="{GITHUB_REPO}"
+                    URL="https://${GITHUB_LOGIN}:${GITHUB_TOKEN}@${GITHUB_REPO}"
                     if [ ! -d "$REPO_DIR/.git" ]; then
                         git clone "$URL" "$REPO_DIR"
                     fi
